@@ -1,0 +1,269 @@
+1)
+mysql> use employee;
+Database changed
+mysql> select *from student;,
+Empty set (0.00 sec)
+
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> describe student;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| reg_no    | int(11)     | NO   | PRI | 0       |       |
+| name      | varchar(15) | YES  |     | NULL    |       |
+| gender    | char(1)     | YES  |     | NULL    |       |
+| DOB       | date        | YES  |     | NULL    |       |
+| mobile_no | int(11)     | YES  |     | NULL    |       |
+| city      | char(15)    | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> insert into student values(192121121,'rakesh','male','2003.06.17',9786296714,'chennai');
+ERROR 1406 (22001): Data too long for column 'gender' at row 1
+mysql> insert into student values(192121121,'rakesh','m','2003.06.17',9786296714,'chennai');
+ERROR 1264 (22003): Out of range value for column 'mobile_no' at row 1
+mysql> insert into student values(192121121,'rakesh','m','2003.06.17',978629,'chennai');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(19212112,'mukesh','m','2003.06.17',9786276,'chennai');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(19212113,'akash','m','2004.06.17',8877555,'chennai');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from student;
++-----------+--------+--------+------------+-----------+---------+
+| reg_no    | name   | gender | DOB        | mobile_no | city    |
++-----------+--------+--------+------------+-----------+---------+
+|  19212112 | mukesh | m      | 2003-06-17 |   9786276 | chennai |
+|  19212113 | akash  | m      | 2004-06-17 |   8877555 | chennai |
+| 192121121 | rakesh | m      | 2003-06-17 |    978629 | chennai |
++-----------+--------+--------+------------+-----------+---------+
+3 rows in set (0.00 sec)
+
+2)
+
+mysql> select reg_no,name,DOB FROM STUDENT;
++-----------+--------+------------+
+| reg_no    | name   | DOB        |
++-----------+--------+------------+
+|  19212112 | mukesh | 2003-06-17 |
+|  19212113 | akash  | 2004-06-17 |
+| 192121121 | rakesh | 2003-06-17 |
++-----------+--------+------------+
+3 rows in set (0.00 sec)
+
+3)
+mysql> SELECT GENDER ='F' FROM STUDENT;
++-------------+
+| GENDER ='F' |
++-------------+
+|           0 |
+|           0 |
+|           0 |
++-------------+
+4)
+
+mysql> ALTER TABLE STUDENT
+    -> ADD COURSE_NO VARCHAR(100);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE STUDENT;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| reg_no    | int(11)      | NO   | PRI | 0       |       |
+| name      | varchar(15)  | YES  |     | NULL    |       |
+| gender    | char(1)      | YES  |     | NULL    |       |
+| DOB       | date         | YES  |     | NULL    |       |
+| mobile_no | int(11)      | YES  |     | NULL    |       |
+| city      | char(15)     | YES  |     | NULL    |       |
+| COURSE_NO | varchar(100) | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> insert into student values(192121121,'rakesh','m','2003.06.17',978629,'chennai','C001');
+ERROR 1062 (23000): Duplicate entry '192121121' for key 'PRIMARY'
+mysql> DELETE GENDER='M' FROM STUDENT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '='M' FROM STUDENT' at line 1
+mysql> DELETE FROM STUDENT WHER GENDER='M';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHER GENDER='M'' at line 1
+mysql> DELETE FROM STUDENT WHER gender='M';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHER gender='M'' at line 1
+mysql> DELETE FROM STUDENT WHERE gender='M';
+Query OK, 3 rows affected (0.00 sec)
+
+mysql> SELECT*FROM STUDENT;
+Empty set (0.00 sec)
+
+mysql> insert into student values(192121121,'rakesh','m','2003.06.17',978629,'chennai','C001');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(19212112,'mukesh','m','2003.06.17',9786276,'chennai','C002');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(19212113,'akash','m','2004.06.17',8877555,'chennai','C001');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT FROM STUDENT WHERE COURESE_NO='C001';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM STUDENT WHERE COURESE_NO='C001'' at line 1
+mysql> SELECT COURSE_NO='C001' FROM STUDENT;
++------------------+
+| COURSE_NO='C001' |
++------------------+
+|                0 |
+|                1 |
+|                1 |
++------------------+
+3 rows in set (0.00 sec)
+
+
+5)
+
+
+mysql> ALTER TABLE STUDENT
+    -> ADD FACULTY_NAME VARCHAR(100);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE STUDENT
+    -> ADD DOJ VARCHAR(100);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE STUDENT;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| reg_no       | int(11)      | NO   | PRI | 0       |       |
+| name         | varchar(15)  | YES  |     | NULL    |       |
+| gender       | char(1)      | YES  |     | NULL    |       |
+| DOB          | date         | YES  |     | NULL    |       |
+| mobile_no    | int(11)      | YES  |     | NULL    |       |
+| city         | char(15)     | YES  |     | NULL    |       |
+| COURSE_NO    | varchar(100) | YES  |     | NULL    |       |
+| FACULTY_NAME | varchar(100) | YES  |     | NULL    |       |
+| DOJ          | varchar(100) | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+mysql> DELETE GENDER='M' FROM STUDENT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '='M' FROM STUDENT' at line 1
+mysql> DELETE FROM STUDENT WHER GENDER='M';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHER GENDER='M'' at line 1
+mysql> DELETE FROM STUDENT WHERE GENDER='M';
+Query OK, 3 rows affected (0.00 sec)
+
+6)
+mysql> describe courses;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| courseno   | varchar(3)  | NO   | PRI | NULL    |       |
+| CourseDesc | varchar(14) | NO   |     | NULL    |       |
+| CourseType | varchar(1)  | NO   |     | NULL    |       |
+| SemNo      | varchar(1)  | NO   |     | NULL    |       |
+| Hallno     | varchar(4)  | NO   |     | NULL    |       |
+| Factno     | varchar(4)  | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+mysql> describe courses;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| courseno   | varchar(3)  | NO   | PRI | NULL    |       |
+| CourseDesc | varchar(14) | NO   |     | NULL    |       |
+| CourseType | varchar(1)  | NO   |     | NULL    |       |
+| SemNo      | varchar(1)  | NO   |     | NULL    |       |
+| Hallno     | varchar(4)  | NO   |     | NULL    |       |
+| Factno     | varchar(4)  | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+mysql> insert into courses values("A", "Dbms", "S", "D", "AS", "DF");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into courses values("B", "OS", "P", "F", "PF", "ED");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into courses values("C", "Data", "E", "R", "RS", "SE");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select* from courses;
++----------+------------+------------+-------+--------+--------+
+| courseno | CourseDesc | CourseType | SemNo | Hallno | Factno |
++----------+------------+------------+-------+--------+--------+
+| A        | Dbms       | S          | D     | AS     | DF     |
+| B        | OS         | P          | F     | PF     | ED     |
+| C        | Data       | E          | R     | RS     | SE     |
++----------+------------+------------+-------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from courses where courseno='c' and coursetype='P';
+Empty set (0.06 sec)
+
+mysql> select * from courses;
++----------+------------+------------+-------+--------+--------+
+| courseno | CourseDesc | CourseType | SemNo | Hallno | Factno |
++----------+------------+------------+-------+--------+--------+
+| A        | Dbms       | S          | D     | AS     | DF     |
+| B        | OS         | P          | F     | PF     | ED     |
+| C        | Data       | E          | R     | RS     | SE     |
++----------+------------+------------+-------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from courses where semno='D' and courseno='C';
+Empty set (0.00 sec)
+
+mysql> select * from courses where semno='D' and courseno='A';
++----------+------------+------------+-------+--------+--------+
+| courseno | CourseDesc | CourseType | SemNo | Hallno | Factno |
++----------+------------+------------+-------+--------+--------+
+| A        | Dbms       | S          | D     | AS     | DF     |
++----------+------------+------------+-------+--------+--------+
+1 row in set (0.03 sec)
+
+mysql> insert into courses values("E", "System", "Z", "X", "No", "WE");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from courses;
++----------+------------+------------+-------+--------+--------+
+| courseno | CourseDesc | CourseType | SemNo | Hallno | Factno |
++----------+------------+------------+-------+--------+--------+
+| A        | Dbms       | S          | D     | AS     | DF     |
+| B        | OS         | P          | F     | PF     | ED     |
+| C        | Data       | E          | R     | RS     | SE     |
+| D        | Structure  | O          | M     | No     | ZE     |
+| E        | System     | Z          | X     | No     | WE     |
++----------+------------+------------+-------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from courses where HallNo="no";
++----------+------------+------------+-------+--------+--------+
+| courseno | CourseDesc | CourseType | SemNo | Hallno | Factno |
++----------+------------+------------+-------+--------+--------+
+| D        | Structure  | O          | M     | No     | ZE     |
+| E        | System     | Z          | X     | No     | WE     |
++----------+------------+------------+-------+--------+--------+
+2 rows in set (0.00 sec)
+
+7)
+mysql> SELECT*FROM STUDENT WHERE NAME LIKE '%THA%';
+Empty set (0.00 sec)
+
+8)
+ SELECT*FROM STUDENT WHERE NAME LIKE '%MA%';
+Empty set (0.00 sec)
+
+9)
+mysql> select * from student where name not like '______';
++-------+------+--------+-----+----------+---------+
+| RegNo | Name | Gender | DOB | MobileNo | City    |
++-------+------+--------+-----+----------+---------+
+|   123 | Sam  | M      |  10 |    45312 | Mumbai  |
+|   321 | Anu  | F      |  14 |   555211 | Chennai |
+|   543 | John | M      |  20 |   452352 | Chennai |
++-------+------+--------+-----+----------+---------+
+3 rows in set (0.02 sec)
